@@ -1,1 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OrbitNext 2.0 — Our Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:#AB1E23; --red2:#7A1518; --navy:#2B2D42; --navy2:#1A1D2E;
+  --gold:#C8920A; --bg:#F7F7F9; --card:#fff; --border:#E4E6EC;
+  --text:#1A1D2E; --muted:#6B7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
 
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.nav-left{display:flex;align-items:center;gap:14px}
+.nav-left img{height:36px;width:auto}
+.nav-divider{width:1px;height:24px;background:var(--border)}
+.nav-tagline{font-size:12px;color:var(--muted);font-style:italic}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all .15s;white-space:nowrap}
+.nav-link:hover{background:var(--bg);color:var(--navy)}
+.nav-link.active{color:var(--red);font-weight:600}
+
+/* HERO */
+.hero{padding-top:64px;min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:var(--navy2)}
+.hero-img{position:absolute;inset:0;background-image:url('https://mekhanil1055.github.io/orbitnext-dashboard/OrbitNext%20Logo.png');background-size:cover;background-position:center;opacity:.12}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,29,46,.97) 0%,rgba(43,45,66,.9) 50%,rgba(171,30,35,.3) 100%)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-left{}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';display:inline-block;width:20px;height:2px;background:var(--red)}
+.hero-title{font-size:clamp(36px,5vw,60px);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.03em;margin-bottom:24px}
+.hero-title span{color:#FF8A8A}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:36px;max-width:480px}
+.hero-stats{display:flex;gap:32px}
+.hero-stat{}
+.hero-stat-num{font-size:32px;font-weight:800;color:#fff;font-family:'DM Mono',monospace;line-height:1}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
+.hero-right{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hero-logo-wrap{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:40px;text-align:center}
+.hero-logo-wrap img{width:220px;max-width:100%}
+.hero-quote{margin-top:24px;font-size:14px;color:rgba(255,255,255,.5);font-style:italic;text-align:center;line-height:1.6;padding:0 10px}
+.hero-quote strong{color:rgba(255,255,255,.7);font-style:normal}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.3);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.hero-scroll-dot{width:2px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.4),transparent);animation:scrollDot 2s ease-in-out infinite}
+@keyframes scrollDot{0%,100%{opacity:.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.2)}}
+
+/* ORBIT TIMELINE */
+.orbit-section{background:#fff;padding:80px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.orbit-inner{max-width:1100px;margin:0 auto}
+.orbit-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.orbit-eyebrow::before{content:'';width:20px;height:2px;background:var(--red)}
+.orbit-title{font-size:clamp(28px,3.5vw,40px);font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:48px;line-height:1.15}
+.timeline{position:relative;display:flex;gap:0}
+.timeline::before{content:'';position:absolute;top:36px;left:36px;right:36px;height:2px;background:linear-gradient(to right,#E4A03A,#2B6CB0,#2E7D32,var(--red));z-index:0}
+.tl-item{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1}
+.tl-dot{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;position:relative;flex-shrink:0;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.tl-dot-inner{font-size:9px;color:#fff;text-align:center;line-height:1.3;padding:0 8px}
+.tl-years{font-size:11px;font-family:'DM Mono',monospace;font-weight:600;margin-bottom:6px}
+.tl-phase{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.tl-desc{font-size:13px;color:var(--muted);line-height:1.6;max-width:200px;margin:0 auto}
+.tl-item:nth-child(1) .tl-dot{background:#E4A03A}
+.tl-item:nth-child(2) .tl-dot{background:#2B6CB0}
+.tl-item:nth-child(3) .tl-dot{background:#2E7D32}
+.tl-item:nth-child(4) .tl-dot{background:var(--red);box-shadow:0 4px 24px rgba(171,30,35,.4)}
+.tl-item:nth-child(1) .tl-years{color:#E4A03A}
+.tl-item:nth-child(2) .tl-years{color:#2B6CB0}
+.tl-item:nth-child(3) .tl-years{color:#2E7D32}
+.tl-item:nth-child(4) .tl-years{color:var(--red)}
+
+/* ORIGIN STORY */
+.origin{padding:80px 40px;background:var(--bg)}
+.origin-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.origin-img{border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.12)}
+.origin-img img{width:100%;height:400px;object-fit:cover;display:block}
+.origin-img-caption{padding:14px 20px;background:#fff;border-top:1px solid var(--border);font-size:12px;color:var(--muted);text-align:center;font-style:italic}
+.origin-content{}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.eyebrow::before{content:'';width:20px;height:2px;background:var(--red)}
+h2.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.15;margin-bottom:16px}
+.section-lead{font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:20px}
+.quote-block{border-left:3px solid var(--red);padding:16px 20px;background:var(--red-light,#FCE8E8);border-radius:0 10px 10px 0;margin:24px 0}
+.quote-text{font-size:15px;font-style:italic;color:var(--navy);line-height:1.7;margin-bottom:8px}
+.quote-attr{font-size:12px;color:var(--muted);font-weight:600}
+
+/* 12 → 4 SECTION */
+.consolidation{padding:80px 40px;background:#fff;border-top:1px solid var(--border)}
+.consolidation-inner{max-width:1100px;margin:0 auto}
+.funnel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.funnel-track{border-radius:16px;border:1px solid var(--border);overflow:hidden}
+.funnel-track-hdr{padding:16px 18px;font-size:13px;font-weight:700;color:#fff}
+.funnel-track-body{padding:14px 18px;background:#fafbfc}
+.funnel-move{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:8px}
+.funnel-move:last-child{margin-bottom:0}
+.funnel-move::before{content:'→';color:var(--red);font-weight:700;flex-shrink:0;margin-top:1px}
+.funnel-track-name{font-size:16px;font-weight:800;color:var(--navy);margin:12px 18px 4px;letter-spacing:-.01em}
+.funnel-track-sub{font-size:12px;color:var(--muted);margin:0 18px 14px;line-height:1.5}
+.funnel-arrow-wrap{display:flex;justify-content:center;margin:8px 0 16px}
+.funnel-arrow{font-size:20px;color:var(--red)}
+
+/* 25TH PHOTO STRIP */
+.photo-strip{padding:0 40px 80px;background:#fff}
+.photo-strip-inner{max-width:1100px;margin:0 auto}
+.photo-strip-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;text-align:center}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;border-radius:16px;overflow:hidden}
+.photos img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .3s ease}
+.photos img:hover{transform:scale(1.02)}
+
+/* 4 TRACKS */
+.tracks{padding:80px 40px;background:var(--bg);border-top:1px solid var(--border)}
+.tracks-inner{max-width:1100px;margin:0 auto}
+.tracks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px}
+.track-card{border-radius:20px;border:1px solid var(--border);background:#fff;overflow:hidden;text-decoration:none;display:block;transition:box-shadow .2s,transform .2s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.track-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.1);transform:translateY(-2px)}
+.track-accent{height:5px}
+.track-card-body{padding:24px}
+.track-initiative{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.track-name{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:10px;letter-spacing:-.01em;line-height:1.2}
+.track-desc{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:20px}
+.track-people{display:flex;flex-direction:column;gap:4px;margin-bottom:20px}
+.track-person{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.track-person-role{font-weight:600;color:var(--navy);min-width:52px}
+.track-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;padding:8px 0;transition:gap .15s}
+.track-card:hover .track-cta{gap:10px}
+
+/* MAJOR MOVES CALLOUT */
+.moves{padding:80px 40px;background:var(--navy2)}
+.moves-inner{max-width:1100px;margin:0 auto}
+.moves-title{font-size:clamp(24px,3vw,36px);font-weight:800;color:#fff;letter-spacing:-.02em;margin-bottom:8px}
+.moves-sub{font-size:16px;color:rgba(255,255,255,.5);margin-bottom:48px;line-height:1.7}
+.moves-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.move-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px}
+.move-num{font-size:11px;font-weight:700;font-family:'DM Mono',monospace;color:var(--red);margin-bottom:8px}
+.move-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
+.move-desc{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6}
+
+/* THIS MONTH */
+.this-month{padding:80px 40px;background:var(--bg);border-top:1px solid var(--border)}
+.this-month-inner{max-width:1100px;margin:0 auto}
+.wins-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
+.win-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;overflow:hidden}
+.win-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.win-loading{text-align:center;padding:40px;color:var(--muted);font-style:italic;font-size:14px}
+.win-track{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.win-track-dot{width:7px;height:7px;border-radius:50%}
+.win-text{font-size:14px;color:var(--text);line-height:1.75}
+.win-outputs{margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.win-output-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.win-output-item{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--muted);margin-bottom:5px;line-height:1.5}
+.win-output-item::before{content:'✓';color:var(--green,#2E7D32);font-weight:700;flex-shrink:0}
+.no-outputs{font-size:12px;color:var(--muted);font-style:italic}
+
+/* FOOTER */
+.footer{background:var(--navy2);padding:48px 40px;text-align:center}
+.footer img{height:40px;opacity:.7;margin-bottom:16px}
+.footer-tagline{font-size:14px;color:rgba(255,255,255,.4);margin-bottom:8px;font-style:italic}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.25)}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-right{display:none}
+  .origin-inner{grid-template-columns:1fr}
+  .funnel-grid{grid-template-columns:1fr 1fr}
+  .tracks-grid{grid-template-columns:1fr}
+  .moves-grid{grid-template-columns:1fr 1fr}
+  .wins-grid{grid-template-columns:1fr}
+  .photos{grid-template-columns:1fr}
+  .timeline{flex-direction:column;gap:32px}
+  .timeline::before{display:none}
+}
+@media(max-width:640px){
+  .nav{padding:0 20px}
+  .funnel-grid{grid-template-columns:1fr}
+  .moves-grid{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-left">
+    <img src="https://mekhanil1055.github.io/orbitnext-dashboard/OrbitNext%20Logo.png" alt="OrbitNext">
+    <div class="nav-divider"></div>
+    <span class="nav-tagline">One Team. One Mission. One Leap Forward.</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Our Story</a>
+    <a href="saasw.html" class="nav-link">SaaSw</a>
+    <a href="ai-native.html" class="nav-link">AI-Native</a>
+    <a href="gtm.html" class="nav-link">GTM</a>
+    <a href="nearshore.html" class="nav-link">Nearshore</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">InApp Information Technologies &mdash; 2024&ndash;2030</div>
+      <h1 class="hero-title">Shaping InApp's<br>Future Through<br><span>OrbitNext</span></h1>
+      <p class="hero-sub">A bold transformation programme built by our people, for our clients, and for the future we are determined to create together.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-label">Strategic tracks</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">520+</div>
+          <div class="hero-stat-label">People on the orbit</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">$50M</div>
+          <div class="hero-stat-label">Revenue ambition by 2029</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-logo-wrap">
+        <img src="https://mekhanil1055.github.io/orbitnext-dashboard/OrbitNext%20Logo.png" alt="OrbitNext">
+        <div class="hero-quote">
+          &ldquo;The next orbit isn&rsquo;t built by chance,<br>it&rsquo;s built by <strong>choices</strong>&rdquo;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll to explore</span>
+    <div class="hero-scroll-dot"></div>
+  </div>
+</section>
+
+<!-- ORBIT TIMELINE -->
+<section class="orbit-section">
+  <div class="orbit-inner">
+    <div class="orbit-eyebrow">25 years in the making</div>
+    <h2 class="orbit-title">Every orbit built on the one before it</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"><div class="tl-dot-inner">Foundation</div></div>
+        <div class="tl-years">2000 &ndash; 2006</div>
+        <div class="tl-phase">Building the Foundation</div>
+        <div class="tl-desc">Four founders, a bold vision, and a commitment to engineering discipline. CMMI Level 5. Datec acquisition. The core of what InApp would become.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"><div class="tl-dot-inner">Orbit 1</div></div>
+        <div class="tl-years">2006 &ndash; 2017</div>
+        <div class="tl-phase">Deepening Client Trust</div>
+        <div class="tl-desc">100 employees, Japan office, Testing as a Service, QC tool supporting India's Mars Mission. Engineering rigour that built lasting client relationships.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"><div class="tl-dot-inner">Orbit 2</div></div>
+        <div class="tl-years">2017 &ndash; 2024</div>
+        <div class="tl-phase">Accelerated Growth</div>
+        <div class="tl-desc">US State Government entry, campus recruitment, Kochi Infopark, UX CoE, Data Sciences CoE. Strategic direction guided by Sankar Krishnan sharpened our growth ambition.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"><div class="tl-dot-inner">OrbitNext</div></div>
+        <div class="tl-years">2024 &ndash; 2030</div>
+        <div class="tl-phase">The Third Orbit</div>
+        <div class="tl-desc">$50M by 2029. AI-first. Enterprise-grade. Global footprint. OrbitNext is our most ambitious leap — and we are building it together.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORIGIN STORY -->
+<section class="origin">
+  <div class="origin-inner">
+    <div class="origin-img">
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/DSC_4279.JPG"
+           onerror="this.src='https://mekhanil1055.github.io/orbitnext-dashboard/OrbitNext%20Logo.png'"
+           alt="OrbitNext launch event, 25th Anniversary">
+      <div class="origin-img-caption">InApp 25th Anniversary Celebration — August 2025</div>
+    </div>
+    <div class="origin-content">
+      <div class="eyebrow">How it started</div>
+      <h2 class="section-title">A two-day workshop that changed everything</h2>
+      <p class="section-lead">OrbitNext was not a directive from the top. It was built in a room, by the people who run this organisation, through two days of honest conversation about where InApp needed to go next.</p>
+      <p class="section-lead" style="margin-top:12px">Guided by Sankar Krishnan and Divya Krishnan, our leaders came together to map strategy, confront bottlenecks, and set bold ambitions. Inspiration became action. Bold ideas became a shared roadmap.</p>
+      <div class="quote-block">
+        <div class="quote-text">&ldquo;Business growth is a sequence of S-curves. You do something, see growth, then plateau, and then you must reinvent to reach the Next orbit.&rdquo;</div>
+        <div class="quote-attr">Dr. Anand Deshpande, Founder &amp; Chairman, Persistent Systems &mdash; whose words ignited the turning point conversation</div>
+      </div>
+      <p class="section-lead">That session became the turning point. The workshop charted OrbitNext — a bold roadmap to deliver greater value, greater confidence, and greater outcomes for every client we serve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 25TH ANNIVERSARY PHOTOS -->
+<section class="photo-strip">
+  <div class="photo-strip-inner">
+    <div class="photo-strip-label">InApp 25th Anniversary Celebration &mdash; August 2025</div>
+    <div class="photos">
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/DSC_4279.JPG"
+           onerror="this.style.display='none'" alt="Team at OrbitNext wall">
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/DSC_4282.JPG"
+           onerror="this.style.display='none'" alt="Team exploring OrbitNext story wall">
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/Right-Wall.jpg"
+           onerror="this.style.display='none'" alt="OrbitNext story wall">
+    </div>
+  </div>
+</section>
+
+<!-- MAJOR MOVES -->
+<section class="moves">
+  <div class="moves-inner">
+    <div class="eyebrow" style="color:rgba(255,255,255,.4)"><span style="background:var(--red);width:20px;height:2px;display:inline-block"></span>The full ambition</div>
+    <h2 class="moves-title">12 Major Moves.<br>One shared direction.</h2>
+    <p class="moves-sub">The Management Team workshop defined 12 areas where InApp needed to move boldly. These became the blueprint for everything that followed.</p>
+    <div class="moves-grid">
+      <div class="move-card"><div class="move-num">01</div><div class="move-title">Nearshore &amp; Onshore Presence</div><div class="move-desc">Establish delivery and support teams in nearshore and onshore locations to strengthen client confidence and tap into local markets.</div></div>
+      <div class="move-card"><div class="move-num">02</div><div class="move-title">Strengthening Marketing</div><div class="move-desc">Significantly increase investments in marketing to boost visibility, lead generation, and positioning.</div></div>
+      <div class="move-card"><div class="move-num">03</div><div class="move-title">Augmenting Tech Teams</div><div class="move-desc">Hire 5–10 senior technology leaders to elevate solution design, tech governance, and innovation.</div></div>
+      <div class="move-card"><div class="move-num">04</div><div class="move-title">AI Enabled Organisation</div><div class="move-desc">Ensure every team has AI literacy and is cloud-competent; aim for full org readiness.</div></div>
+      <div class="move-card"><div class="move-num">05</div><div class="move-title">Innovation Engine</div><div class="move-desc">Institutionalize a dedicated innovation charter; 25% of work to be innovation-led.</div></div>
+      <div class="move-card"><div class="move-num">06</div><div class="move-title">Delivery Capabilities</div><div class="move-desc">Build predictable, scalable delivery models with better governance, tools, and execution depth.</div></div>
+      <div class="move-card"><div class="move-num">07</div><div class="move-title">Productize</div><div class="move-desc">Identify and evolve at least 5 reusable modules including MLOps or functional accelerators.</div></div>
+      <div class="move-card"><div class="move-num">08</div><div class="move-title">Strengthen Account Management</div><div class="move-desc">Build a world-class account management function capable of handling large enterprise clients.</div></div>
+      <div class="move-card"><div class="move-num">09</div><div class="move-title">Customer First</div><div class="move-desc">Reorient the org to track and deliver customer outcomes, not just delivery completion.</div></div>
+      <div class="move-card"><div class="move-num">10</div><div class="move-title">People Initiatives</div><div class="move-desc">Launch 2–3 people-centric initiatives to energize and engage at least 350 employees.</div></div>
+      <div class="move-card"><div class="move-num">11</div><div class="move-title">Lateral Investments in Talent</div><div class="move-desc">Expand the current team with 30–50 specialized lateral hires across key functions.</div></div>
+      <div class="move-card"><div class="move-num">12</div><div class="move-title">L&amp;D Function</div><div class="move-desc">Build a strong Learning &amp; Development function to support leadership, tech, and delivery capabilities.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 → 4 CONSOLIDATION -->
+<section class="consolidation">
+  <div class="consolidation-inner">
+    <div class="eyebrow">OrbitNext 2.0</div>
+    <h2 class="section-title" style="font-size:clamp(28px,3.5vw,40px);font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:12px">From broad ambition to focused execution</h2>
+    <p class="section-lead" style="max-width:680px;font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:0">OrbitNext 2.0 took the 12 Major Moves and concentrated them into 4 deeply focused tracks. Each track absorbs multiple moves, assigns clear ownership, and drives execution with discipline. Going deep, not wide, is how transformation actually happens.</p>
+
+    <div class="funnel-grid">
+      <!-- SaaSw -->
+      <div class="funnel-track">
+        <div class="funnel-track-hdr" style="background:#1565C0">SaaSw (Service as a Software)</div>
+        <div class="funnel-track-body">
+          <div class="funnel-move">Productize — reusable modules &amp; accelerators</div>
+          <div class="funnel-move">Innovation Engine — innovation-led delivery</div>
+          <div class="funnel-move">Delivery Capabilities — scalable delivery models</div>
+        </div>
+        <div class="funnel-arrow-wrap"><div class="funnel-arrow">↓</div></div>
+        <div class="funnel-track-name">Productized Solutions</div>
+        <div class="funnel-track-sub">Building reusable assets that let InApp deliver faster and smarter for every client.</div>
+      </div>
+
+      <!-- AI-Native -->
+      <div class="funnel-track">
+        <div class="funnel-track-hdr" style="background:#1A5276">AI-Native Organisation</div>
+        <div class="funnel-track-body">
+          <div class="funnel-move">AI Enabled Organisation — org-wide AI literacy</div>
+          <div class="funnel-move">Augmenting Tech Teams — senior tech leadership</div>
+          <div class="funnel-move">L&amp;D Function — capability building</div>
+        </div>
+        <div class="funnel-arrow-wrap"><div class="funnel-arrow">↓</div></div>
+        <div class="funnel-track-name">AI at the Core</div>
+        <div class="funnel-track-sub">Every engineer, every project, every client engagement — AI-first by design.</div>
+      </div>
+
+      <!-- GTM -->
+      <div class="funnel-track">
+        <div class="funnel-track-hdr" style="background:#AB1E23">GTM — HHS &amp; Construction</div>
+        <div class="funnel-track-body">
+          <div class="funnel-move">Strengthening Marketing — visibility &amp; leads</div>
+          <div class="funnel-move">Strengthen Account Management — enterprise clients</div>
+          <div class="funnel-move">Customer First — outcomes over delivery</div>
+        </div>
+        <div class="funnel-arrow-wrap"><div class="funnel-arrow">↓</div></div>
+        <div class="funnel-track-name">Market Leadership</div>
+        <div class="funnel-track-sub">Winning in chosen niches with deep domain expertise and enterprise-grade relationships.</div>
+      </div>
+
+      <!-- Nearshore -->
+      <div class="funnel-track">
+        <div class="funnel-track-hdr" style="background:#2E7D32">Nearshore / Onshore &amp; Satellite</div>
+        <div class="funnel-track-body">
+          <div class="funnel-move">Nearshore &amp; Onshore Presence — local markets</div>
+          <div class="funnel-move">Lateral Investments in Talent — strategic hires</div>
+          <div class="funnel-move">People Initiatives — workforce energy</div>
+        </div>
+        <div class="funnel-arrow-wrap"><div class="funnel-arrow">↓</div></div>
+        <div class="funnel-track-name">Global Expansion</div>
+        <div class="funnel-track-sub">Building presence where our clients are, with the talent needed to serve them at scale.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 TRACK CARDS -->
+<section class="tracks">
+  <div class="tracks-inner">
+    <div class="eyebrow">The four tracks</div>
+    <h2 class="section-title" style="font-size:clamp(28px,3.5vw,40px);font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:8px">Explore each initiative</h2>
+    <p class="section-lead" style="font-size:16px;color:var(--muted)">Each track has its own story, its own team, and its own wins. Click through to see where we are and what we&rsquo;ve achieved.</p>
+    <div class="tracks-grid">
+
+      <a href="saasw.html" class="track-card">
+        <div class="track-accent" style="background:#1565C0"></div>
+        <div class="track-card-body">
+          <div class="track-initiative">Initiative 1</div>
+          <div class="track-name">SaaSw</div>
+          <div class="track-desc">Service as a Software — building reusable, productized assets that allow InApp to deliver faster, smarter, and with greater impact for every client engagement.</div>
+          <div class="track-people">
+            <div class="track-person"><span class="track-person-role">Owner</span>Prithvi Bhaktapriya</div>
+            <div class="track-person"><span class="track-person-role">Mentor</span>Anil Saraswathy</div>
+          </div>
+          <div class="track-cta" style="color:#1565C0">See SaaSw progress <span>→</span></div>
+        </div>
+      </a>
+
+      <a href="ai-native.html" class="track-card">
+        <div class="track-accent" style="background:#1A5276"></div>
+        <div class="track-card-body">
+          <div class="track-initiative">Initiative 2</div>
+          <div class="track-name">AI-Native Organisation</div>
+          <div class="track-desc">Making AI the default at InApp — training engineers, embedding AI into delivery, and building the internal capability to lead clients through intelligent transformation.</div>
+          <div class="track-people">
+            <div class="track-person"><span class="track-person-role">Owners</span>Shaji S Nair, Pradeep Rajagopala Panicker, Parvathy Sukumaran</div>
+            <div class="track-person"><span class="track-person-role">Mentors</span>Suresh CK &amp; Anil Saraswathy</div>
+          </div>
+          <div class="track-cta" style="color:#1A5276">See AI-Native progress <span>→</span></div>
+        </div>
+      </a>
+
+      <a href="gtm.html" class="track-card">
+        <div class="track-accent" style="background:#AB1E23"></div>
+        <div class="track-card-body">
+          <div class="track-initiative">Initiative 3</div>
+          <div class="track-name">GTM — HHS &amp; Construction</div>
+          <div class="track-desc">Going to market in the sectors where InApp has deep expertise — Healthcare &amp; Human Services and Construction — with a domain-driven, enterprise-first approach.</div>
+          <div class="track-people">
+            <div class="track-person"><span class="track-person-role">Owners</span>Ishtiyaq Javed Aboobacker, Rubinaa (HHS), Mahesh (Construction)</div>
+            <div class="track-person"><span class="track-person-role">Mentor</span>Sathish Chandran</div>
+          </div>
+          <div class="track-cta" style="color:#AB1E23">See GTM progress <span>→</span></div>
+        </div>
+      </a>
+
+      <a href="nearshore.html" class="track-card">
+        <div class="track-accent" style="background:#2E7D32"></div>
+        <div class="track-card-body">
+          <div class="track-initiative">Initiative 4</div>
+          <div class="track-name">Nearshore &amp; Satellite</div>
+          <div class="track-desc">Building InApp&rsquo;s global presence — establishing nearshore and onshore teams that bring us closer to our clients and create new opportunities for the organisation to grow.</div>
+          <div class="track-people">
+            <div class="track-person"><span class="track-person-role">Owners</span>Parvathy Sukumaran, Ramkumar Hariharan, Suchithra R V</div>
+            <div class="track-person"><span class="track-person-role">Mentor</span>Vijay Kumar</div>
+          </div>
+          <div class="track-cta" style="color:#2E7D32">See Nearshore progress <span>→</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- THIS MONTH -->
+<section class="this-month">
+  <div class="this-month-inner">
+    <div class="eyebrow">What we&rsquo;ve achieved</div>
+    <h2 class="section-title" style="font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:8px">This month across OrbitNext</h2>
+    <p class="section-lead" style="font-size:16px;color:var(--muted);margin-bottom:0">Progress from all four tracks — written by AI from live programme data, updated monthly.</p>
+    <div class="wins-grid" id="wins-grid">
+      <div class="win-loading" style="grid-column:1/-1">Loading this month&rsquo;s updates&hellip;</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <img src="https://mekhanil1055.github.io/orbitnext-dashboard/OrbitNext%20Logo.png" alt="OrbitNext">
+  </div>
+  <div class="footer-tagline">One Team. One Mission. One Leap Forward.</div>
+  <div class="footer-copy">&copy; 2026 InApp Information Technologies &middot; OrbitNext Programme &middot; For internal circulation only</div>
+</footer>
+
+<script>
+var DATA_URL = "https://script.google.com/macros/s/AKfycbwgkS45kGFl1s-8z-W2nFdO4YQYEE-I3DbM2XbZ5G4sQUsA6uJaxu3X6GNTg5LZJmBvWg/exec?serve=data";
+
+var TRACK_COLORS = {
+  "I1 - SaaSw":     {color:"#1565C0", label:"SaaSw"},
+  "I2 - AI Native": {color:"#1A5276", label:"AI-Native"},
+  "I3 - GTM":       {color:"#AB1E23", label:"GTM"},
+  "I4 - Nearshore": {color:"#2E7D32", label:"Nearshore"}
+};
+
+function escHtml(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function buildWinText(d) {
+  var ms = d["_milestones"]||[];
+  var done = ms.filter(function(m){return m.status==="Completed";});
+  var ip   = ms.filter(function(m){return m.status==="In Progress";});
+  var metrics = d["_metrics"]||[];
+  var entered = metrics.filter(function(m){return m.actual&&m.actual.trim()!==""&&m.actual!=="0";});
+  var outputs = d["_outputs"]||[];
+
+  var lines = [];
+  if(done.length) lines.push(done.length+" milestone"+(done.length>1?"s":"")+" completed, including "+done.slice(-1)[0].name+".");
+  if(ip.length)   lines.push(ip.length+" milestone"+(ip.length>1?"s":"")+" actively in progress.");
+  if(entered.length){
+    var wins = entered.filter(function(m){
+      var t=parseFloat((m.target||"").replace(/[^0-9.\-]/g,"")),a=parseFloat((m.actual||"").replace(/[^0-9.\-]/g,""));
+      return !isNaN(t)&&!isNaN(a)&&a>=t;
+    });
+    if(wins.length) lines.push(wins.map(function(m){return m.name+" at "+m.actual+" (target: "+m.target+")";}).join("; ")+".");
+  }
+  if(!lines.length) lines.push("Updates will appear here once programme data is entered for this track.");
+  return lines.join(" ");
+}
+
+function loadWins(){
+  fetch(DATA_URL)
+    .then(function(r){return r.json();})
+    .then(function(p){
+      var data = p.initiatives||[];
+      if(!data.length){
+        document.getElementById("wins-grid").innerHTML='<div class="win-loading">No data available yet.</div>';
+        return;
+      }
+      var html="";
+      data.forEach(function(d){
+        var iname = d["Initiative"]||"";
+        var tc = TRACK_COLORS[iname]||{color:"#6B7280",label:iname};
+        var outputs = d["_outputs"]||[];
+        var winText = buildWinText(d);
+        html+='<div class="win-card" style="border-top-color:'+tc.color+'">';
+        html+='<div style="border-top:3px solid '+tc.color+';margin:-22px -22px 18px;border-radius:14px 14px 0 0"></div>';
+        html+='<div class="win-track"><div class="win-track-dot" style="background:'+tc.color+'"></div><span style="color:'+tc.color+';font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">'+tc.label+'</span></div>';
+        html+='<div class="win-text">'+escHtml(winText)+'</div>';
+        if(outputs.length){
+          html+='<div class="win-outputs"><div class="win-output-label">Outputs this month</div>';
+          outputs.forEach(function(o){html+='<div class="win-output-item">'+escHtml(o)+'</div>';});
+          html+='</div>';
+        }
+        html+='</div>';
+      });
+      document.getElementById("wins-grid").innerHTML=html;
+    })
+    .catch(function(){
+      document.getElementById("wins-grid").innerHTML='<div class="win-loading">Could not load programme updates. Please refresh.</div>';
+    });
+}
+
+loadWins();
+</script>
+</body>
+</html>
