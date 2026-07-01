@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OrbitNext 2.0 — AI-Native Organisation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#AB1E23; --red2:#7A1518; --navy:#2B2D42; --navy2:#1A1D2E;
+  --track:#1A5276; --track-light:#E3F2FD; --track-dark:#0D3349;
+  --bg:#F7F7F9; --card:#fff; --border:#E4E6EC; --text:#1A1D2E; --muted:#6B7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.nav-left{display:flex;align-items:center;gap:14px}
+.nav-left img{height:36px;width:auto}
+.nav-divider{width:1px;height:24px;background:var(--border)}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all .15s}
+.nav-link:hover{background:var(--bg);color:var(--navy)}
+.nav-link.active{color:var(--track);font-weight:700}
+.nav-back{font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);transition:all .15s}
+.nav-back:hover{background:var(--bg);color:var(--navy)}
+
+/* TRACK HERO */
+.hero{padding-top:64px;background:var(--navy2);min-height:420px;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--track-dark) 0%,var(--navy2) 60%);opacity:.8}
+.hero::after{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:var(--track);opacity:.06}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto;padding:72px 40px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';display:inline-block;width:20px;height:2px;background:var(--track)}
+.hero-title{font-size:clamp(32px,4.5vw,52px);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.03em;margin-bottom:16px}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.6);line-height:1.7;max-width:560px;margin-bottom:28px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:16px}
+.hero-meta-item{font-size:13px;color:rgba(255,255,255,.5)}
+.hero-meta-item strong{color:rgba(255,255,255,.8);display:block;margin-bottom:2px}
+.hero-score{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:28px 32px;text-align:center;flex-shrink:0;min-width:160px}
+.hero-score-num{font-size:52px;font-weight:900;font-family:'DM Mono',monospace;color:#fff;line-height:1}
+.hero-score-label{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+.hero-score-status{margin-top:10px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.2);color:#fff;display:inline-block}
+
+/* SECTIONS */
+.section{padding:72px 40px}
+.section-inner{max-width:1100px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--track);display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.eyebrow::before{content:'';width:20px;height:2px;background:var(--track)}
+.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.15;margin-bottom:16px}
+.section-lead{font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:16px}
+
+/* STORY */
+.story-grid{display:grid;grid-template-columns:3fr 2fr;gap:48px;align-items:start}
+.story-paras p{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:16px}
+.story-paras p:last-child{margin-bottom:0}
+.story-quote{background:var(--track-light);border-left:4px solid var(--track);border-radius:0 12px 12px 0;padding:24px;position:sticky;top:84px}
+.story-quote-text{font-size:17px;font-style:italic;color:var(--navy);line-height:1.7;margin-bottom:12px}
+.story-quote-attr{font-size:12px;color:var(--muted);font-weight:600}
+
+/* MOVES */
+.moves-section{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.moves-list{display:flex;flex-direction:column;gap:12px;margin-top:32px}
+.move-item{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;gap:16px;align-items:flex-start}
+.move-item-num{font-size:12px;font-weight:700;color:var(--track);min-width:180px;flex-shrink:0;line-height:1.5}
+.move-item-desc{font-size:14px;color:var(--muted);line-height:1.6}
+
+/* OBJECTIVES */
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.obj-item{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:var(--navy);line-height:1.6;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid var(--border)}
+.obj-bullet{color:var(--track);font-weight:700;font-size:16px;flex-shrink:0;margin-top:1px}
+
+/* WINS */
+.wins-section{background:var(--track-light);border-top:1px solid var(--border)}
+.win-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.win-ai-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--track);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.win-text{font-size:15px;color:var(--text);line-height:1.8}
+.win-spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--track);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.outputs-list{margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.outputs-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.output-item{display:flex;align-items:flex-start;gap:8px;font-size:14px;color:var(--nav);margin-bottom:8px;padding:10px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
+.output-item-check{color:var(--track);font-weight:700;flex-shrink:0}
+.output-date{font-size:11px;color:var(--muted);margin-left:auto;flex-shrink:0;font-family:'DM Mono',monospace}
+.no-outputs{font-size:14px;color:var(--muted);font-style:italic;padding:16px 0}
+
+/* FOOTER */
+.footer{background:var(--navy2);padding:48px 40px;text-align:center}
+.footer img{height:32px;opacity:.7;margin-bottom:16px;display:block;margin-left:auto;margin-right:auto}
+.footer-tagline{font-size:14px;color:rgba(255,255,255,.4);margin-bottom:8px;font-style:italic}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.25)}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-score{display:none}
+  .story-grid{grid-template-columns:1fr}
+  .story-quote{position:static}
+  .move-item{flex-direction:column;gap:6px}
+  .move-item-num{min-width:auto}
+}
+@media(max-width:640px){
+  .nav{padding:0 20px}
+  .nav-links{display:none}
+  .section{padding:48px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/OrbitNext%20Logo.png" alt="OrbitNext">
+    </a>
+    <div class="nav-divider"></div>
+    <a href="index.html" class="nav-back">← All tracks</a>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Our Story</a>
+    <a href="saasw.html" class="nav-link">SaaSw</a>
+<a href="ai-native.html" class="nav-link active">AI-Native Organisation</a>
+<a href="gtm.html" class="nav-link">GTM</a>
+<a href="nearshore.html" class="nav-link">Nearshore & Satellite</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">OrbitNext 2.0 &mdash; 12 months Initiative</div>
+      <h1 class="hero-title">AI-Native Organisation</h1>
+      <p class="hero-sub">Ensuring every person at InApp is AI-capable, every project is AI-enabled, and every client sees us as an AI-first partner.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><strong>Owner(s)</strong>Shaji S Nair, Pradeep Rajagopala Panicker, Parvathy Sukumaran</div>
+        <div class="hero-meta-item"><strong>Mentor(s)</strong>Suresh CK & Anil Saraswathy</div>
+        <div class="hero-meta-item"><strong>Timeline</strong>12 months</div>
+      </div>
+    </div>
+    <div class="hero-score">
+      <div class="hero-score-num" id="track-score">—</div>
+      <div class="hero-score-label">Current score</div>
+      <div class="hero-score-status" id="track-status">Loading</div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="section">
+  <div class="section-inner">
+    <div class="eyebrow">The story</div>
+    <h2 class="section-title">What this track is about</h2>
+    <div class="story-grid">
+      <div class="story-paras">
+        <p>The AI-Native track is one of the most ambitious in OrbitNext — and one of the longest at 12 months. That length is intentional. Becoming a truly AI-native organisation is not a training programme. It is a cultural shift.</p><p>This track is building three things simultaneously: capability in our people (through the SEED Engineers programme and AI skilling), tools and frameworks embedded into delivery, and pilots with clients that demonstrate what AI-first delivery looks like in practice.</p><p>The work absorbs the AI Enabled Organisation, Augmenting Tech Teams, and L&D Function major moves. When this track completes, InApp will have transformed from a company that uses AI into a company that is defined by it.</p>
+      </div>
+      <div>
+        <div class="story-quote">
+          <div class="story-quote-text">&ldquo;We are not adding AI to what we do. We are rebuilding what we do around AI.&rdquo;</div>
+          <div class="story-quote-attr">AI-Native Organisation — OrbitNext 2.0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAJOR MOVES -->
+<section class="section moves-section">
+  <div class="section-inner">
+    <div class="eyebrow">Where it came from</div>
+    <h2 class="section-title">The Major Moves this track absorbs</h2>
+    <p class="section-lead">This track is the concentrated execution of these original strategic moves from the Management Team workshop.</p>
+    <div class="moves-list">
+      <div class="move-item"><div class="move-item-num">04 — AI Enabled Organisation</div><div class="move-item-desc">Ensure every team has AI literacy and is cloud-competent; aim for full org readiness.</div></div>
+<div class="move-item"><div class="move-item-num">03 — Augmenting Tech Teams</div><div class="move-item-desc">Hire 5–10 senior technology leaders to elevate solution design, tech governance, and innovation.</div></div>
+<div class="move-item"><div class="move-item-num">12 — L&D Function</div><div class="move-item-desc">Build a strong Learning & Development function to support leadership, tech, and delivery capabilities.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section class="section">
+  <div class="section-inner">
+    <div class="eyebrow">What success looks like</div>
+    <h2 class="section-title">Key objectives</h2>
+    <p class="section-lead">These are the outcomes this track is working toward. Each one is tracked, measured, and updated in the programme tracker.</p>
+    <ul class="obj-list">
+      <li class="obj-item"><span class="obj-bullet">→</span>Train 20 SEED Engineers in AI-native delivery practices</li>
+<li class="obj-item"><span class="obj-bullet">→</span>Transform 15–20 projects to be AI-native in their execution</li>
+<li class="obj-item"><span class="obj-bullet">→</span>Complete Wave 1 AI-Native pilots across identified client projects</li>
+<li class="obj-item"><span class="obj-bullet">→</span>Establish AI-Native delivery frameworks, governance, and reusable implementation patterns</li>
+<li class="obj-item"><span class="obj-bullet">→</span>Improve engineering productivity measurably through AI tooling</li>
+    </ul>
+  </div>
+</section>
+
+<!-- THIS MONTH WINS -->
+<section class="section wins-section">
+  <div class="section-inner">
+    <div class="eyebrow">Progress update</div>
+    <h2 class="section-title">What&rsquo;s been achieved</h2>
+    <p class="section-lead" style="margin-bottom:28px">An AI-generated summary of this track&rsquo;s progress, drawn from live programme data. Updated monthly.</p>
+    <div class="win-card">
+      <div class="win-ai-label">&#10024; AI-generated from programme data</div>
+      <div class="win-text" id="win-text"><span class="win-spinner"></span>Loading update&hellip;</div>
+      <div class="outputs-list" id="outputs-list" style="display:none">
+        <div class="outputs-label">Outputs logged this month</div>
+        <div id="outputs-items"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="https://mekhanil1055.github.io/orbitnext-dashboard/OrbitNext%20Logo.png" alt="OrbitNext">
+  <div class="footer-tagline">One Team. One Mission. One Leap Forward.</div>
+  <div class="footer-copy">&copy; 2026 InApp Information Technologies &middot; OrbitNext Programme &middot; For internal circulation only</div>
+</footer>
+
+<script>
+var DATA_URL = "https://script.google.com/macros/s/AKfycbwgkS45kGFl1s-8z-W2nFdO4YQYEE-I3DbM2XbZ5G4sQUsA6uJaxu3X6GNTg5LZJmBvWg/exec?serve=data";
+var TRACK_ID = "I2 - AI Native";
+
+function escHtml(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function progColor(p){return p>=85?"#2E7D32":p>=70?"#F9A825":p>=50?"#FB8C00":p>=30?"#EF5350":"#B71C1C";}
+function statusLabel(p){return p>=85?"On Track":p>=70?"Minor Concerns":p>=50?"Needs Attention":p>=30?"At Risk":"Off Track";}
+
+function buildWinText(d) {
+  var ms = d["_milestones"]||[];
+  var done = ms.filter(function(m){return m.status==="Completed";});
+  var ip   = ms.filter(function(m){return m.status==="In Progress";});
+  var metrics = d["_metrics"]||[];
+  var wins = metrics.filter(function(m){
+    var t=parseFloat((m.target||"").replace(/[^0-9.\-]/g,"")),a=parseFloat((m.actual||"").replace(/[^0-9.\-]/g,""));
+    return !isNaN(t)&&!isNaN(a)&&a>=t&&m.actual&&m.actual.trim()!=="";
+  });
+
+  var lines = [];
+  if(done.length) lines.push(done.length+" milestone"+(done.length>1?"s":"")+" completed so far, including "+done[done.length-1].name+".");
+  if(ip.length) lines.push(ip.map(function(m){return m.name;}).join(", ")+(ip.length>1?" are":" is")+" currently in progress.");
+  if(wins.length) lines.push("Metrics hitting target: "+wins.map(function(m){return m.name+" at "+m.actual;}).join("; ")+".");
+  if(!lines.length) lines.push("Programme data for this track is being updated. Check back soon for the latest progress.");
+  return lines.join(" ");
+}
+
+fetch(DATA_URL)
+  .then(function(r){return r.json();})
+  .then(function(p){
+    var data = p.initiatives||[];
+    var d = null;
+    for(var i=0;i<data.length;i++){if(data[i]["Initiative"]===TRACK_ID){d=data[i];break;}}
+    if(!d) return;
+
+    var score = d["Overall Score"]||0;
+    var status = d["Overall Status"]||"";
+    var color = progColor(score);
+
+    document.getElementById("track-score").textContent = score+"%";
+    document.getElementById("track-score").style.color = color;
+    document.getElementById("track-status").textContent = status;
+
+    document.getElementById("win-text").textContent = buildWinText(d);
+
+    var outputs = d["_outputs"]||[];
+    if(outputs.length) {
+      document.getElementById("outputs-list").style.display="block";
+      var html = outputs.map(function(o){
+        return '<div class="output-item"><span class="output-item-check">&#10003;</span><span>'+escHtml(o)+'</span></div>';
+      }).join("");
+      document.getElementById("outputs-items").innerHTML = html;
+    }
+  })
+  .catch(function(){
+    document.getElementById("win-text").textContent = "Could not load programme data. Please try again later.";
+  });
+</script>
+</body>
+</html>
