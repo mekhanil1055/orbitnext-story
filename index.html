@@ -6,6 +6,7 @@
   <link rel="icon" type="image/png" href="https://mekhanil1055.github.io/orbitnext-story/FAVICON%20ON.png">
 <title>OrbitNext 2.0 — Our Story</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 :root {
   --red:#AB1E23; --red2:#7A1518; --navy:#2B2D42; --navy2:#1A1D2E;
@@ -57,19 +58,43 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .orbit-inner{max-width:1100px;margin:0 auto}
 .orbit-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .orbit-eyebrow::before{content:'';width:20px;height:2px;background:var(--red)}
-.orbit-title{font-size:clamp(28px,3.5vw,40px);font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:48px;line-height:1.15}
-.timeline{position:relative;display:flex;gap:0}
-.timeline::before{content:'';position:absolute;top:36px;left:36px;right:36px;height:2px;background:linear-gradient(to right,#E4A03A,#2B6CB0,#2E7D32,var(--red));z-index:0}
-.tl-item{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1}
-.tl-dot{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;position:relative;flex-shrink:0;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,.12)}
-.tl-dot-inner{font-size:9px;color:#fff;text-align:center;line-height:1.3;padding:0 8px}
-.tl-years{font-size:11px;font-family:'DM Mono',monospace;font-weight:600;margin-bottom:6px}
-.tl-phase{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
-.tl-desc{font-size:13px;color:var(--muted);line-height:1.6;max-width:200px;margin:0 auto}
+.orbit-title{font-size:clamp(28px,3.5vw,40px);font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:64px;line-height:1.15}
+.timeline{position:relative;display:flex;gap:0;align-items:flex-start}
+.timeline::before{content:'';position:absolute;top:44px;left:72px;right:72px;height:2px;background:linear-gradient(to right,#E4A03A,#2B6CB0,#2E7D32,var(--red));z-index:0}
+.tl-item{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;cursor:default;padding:0 8px}
+.tl-dot{width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative;flex-shrink:0;border:4px solid #fff;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease;will-change:transform}
+.tl-dot-inner{font-size:9px;font-weight:800;color:#fff;text-align:center;line-height:1.3;padding:0 6px;letter-spacing:.06em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.tl-years{font-size:11px;font-family:'DM Mono',monospace;font-weight:600;margin-bottom:6px;transition:font-weight .2s}
+.tl-phase{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;transition:color .2s}
+.tl-desc{font-size:13px;color:var(--muted);line-height:1.6;max-width:200px;margin:0 auto;transition:opacity .2s}
+/* hover — first 3 */
+.tl-item:not(:last-child):hover .tl-dot{transform:scale(1.22)}
+.tl-item:not(:last-child):hover .tl-phase{color:var(--red)}
+.tl-item:not(:last-child):hover .tl-years{font-weight:800}
+/* ORBITNEXT — last item always bigger + pulsing */
+.tl-item:last-child .tl-dot{width:120px;height:120px;animation:orbitPulse 2.5s ease-in-out infinite;border-width:5px}
+.tl-item:last-child .tl-dot-inner{font-size:11px;font-weight:900}
+.tl-item:last-child .tl-phase{font-size:18px;font-weight:800;color:var(--red)}
+.tl-item:last-child:hover .tl-dot{animation:none;transform:scale(1.18);box-shadow:0 0 0 14px rgba(171,30,35,.1),0 0 0 28px rgba(171,30,35,.05),0 16px 48px rgba(171,30,35,.45)!important}
+/* ORBITNEXT popup card */
+.tl-orbit-card{position:absolute;top:148px;left:50%;transform:translateX(-50%) translateY(6px);width:230px;background:#fff;border:1px solid var(--border);border-top:3px solid var(--red);border-radius:14px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,.14);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.2,.64,1)}
+.tl-item:last-child:hover .tl-orbit-card{opacity:1;transform:translateX(-50%) translateY(0)}
+.tl-orbit-card-title{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+.tl-orbit-card-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;border-bottom:1px solid #f3f4f6}
+.tl-orbit-card-row:last-child{border-bottom:none}
+.tl-orbit-card-label{color:var(--muted)}
+.tl-orbit-card-val{font-weight:700;color:var(--navy);font-family:'DM Mono',monospace;font-size:13px}
+@keyframes orbitPulse{
+  0%,100%{box-shadow:0 4px 24px rgba(171,30,35,.4),0 0 0 0 rgba(171,30,35,.15)}
+  50%{box-shadow:0 8px 40px rgba(171,30,35,.5),0 0 0 16px rgba(171,30,35,.04)}
+}
 .tl-item:nth-child(1) .tl-dot{background:#E4A03A}
+.tl-item:nth-child(1):hover .tl-dot{box-shadow:0 8px 32px rgba(228,160,58,.5)}
 .tl-item:nth-child(2) .tl-dot{background:#2B6CB0}
+.tl-item:nth-child(2):hover .tl-dot{box-shadow:0 8px 32px rgba(43,108,176,.5)}
 .tl-item:nth-child(3) .tl-dot{background:#2E7D32}
-.tl-item:nth-child(4) .tl-dot{background:var(--red);box-shadow:0 4px 24px rgba(171,30,35,.4)}
+.tl-item:nth-child(3):hover .tl-dot{box-shadow:0 8px 32px rgba(46,125,50,.5)}
+.tl-item:nth-child(4) .tl-dot{background:var(--red)}
 .tl-item:nth-child(1) .tl-years{color:#E4A03A}
 .tl-item:nth-child(2) .tl-years{color:#2B6CB0}
 .tl-item:nth-child(3) .tl-years{color:#2E7D32}
@@ -247,28 +272,86 @@ h2.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy
     <h2 class="orbit-title">Every orbit built on the one before it</h2>
     <div class="timeline">
       <div class="tl-item">
-        <div class="tl-dot"><div class="tl-dot-inner">Foundation</div></div>
+        <div class="tl-dot">
+          <div class="tl-dot-inner">
+            <!-- Foundation: pillars/building blocks -->
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="display:block;margin-bottom:3px">
+              <rect x="4" y="20" width="5" height="8" rx="1" fill="white" opacity=".9"/>
+              <rect x="13" y="14" width="5" height="14" rx="1" fill="white" opacity=".9"/>
+              <rect x="22" y="20" width="5" height="8" rx="1" fill="white" opacity=".9"/>
+              <rect x="2" y="28" width="27" height="2.5" rx="1" fill="white"/>
+              <rect x="6" y="11" width="19" height="2" rx="1" fill="white" opacity=".7"/>
+            </svg>
+            Foundation
+          </div>
+        </div>
         <div class="tl-years">2000 &ndash; 2006</div>
         <div class="tl-phase">Building the Foundation</div>
         <div class="tl-desc">Four founders, a bold vision, and a commitment to engineering discipline. CMMI Level 5. Datec acquisition. The core of what InApp would become.</div>
       </div>
       <div class="tl-item">
-        <div class="tl-dot"><div class="tl-dot-inner">Orbit 1</div></div>
+        <div class="tl-dot">
+          <div class="tl-dot-inner">
+            <!-- Orbit 1: handshake / trust -->
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="display:block;margin-bottom:3px">
+              <path d="M3 14c0 0 3-4 7-4c2 0 3.5 1 5 1s3-1 5-1c4 0 7 4 7 4" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>
+              <path d="M3 14l4 6h3l3-3l3 3h3l4-6" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="16" cy="10" r="2.5" fill="white" opacity=".8"/>
+            </svg>
+            Orbit 1
+          </div>
+        </div>
         <div class="tl-years">2006 &ndash; 2017</div>
         <div class="tl-phase">Deepening Client Trust</div>
         <div class="tl-desc">100 employees, Japan office, Testing as a Service, QC tool supporting India's Mars Mission. Engineering rigour that built lasting client relationships.</div>
       </div>
       <div class="tl-item">
-        <div class="tl-dot"><div class="tl-dot-inner">Orbit 2</div></div>
+        <div class="tl-dot">
+          <div class="tl-dot-inner">
+            <!-- Orbit 2: upward arrow / growth -->
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="display:block;margin-bottom:3px">
+              <polyline points="4,24 12,14 18,19 27,8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="20,8 27,8 27,15" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Orbit 2
+          </div>
+        </div>
         <div class="tl-years">2017 &ndash; 2024</div>
         <div class="tl-phase">Accelerated Growth</div>
         <div class="tl-desc">US State Government entry, campus recruitment, Kochi Infopark, UX CoE, Data Sciences CoE. Strategic direction guided by Sankar Krishnan sharpened our growth ambition.</div>
       </div>
       <div class="tl-item">
-        <div class="tl-dot"><div class="tl-dot-inner">OrbitNext</div></div>
+        <div class="tl-dot">
+          <div class="tl-dot-inner">
+            <!-- OrbitNext: rocket -->
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none" style="display:block;margin-bottom:3px">
+              <path d="M16 3C16 3 22 7 22 16C22 20 20 24 16 27C12 24 10 20 10 16C10 7 16 3 16 3Z" fill="white" opacity=".9"/>
+              <ellipse cx="16" cy="16" rx="3" ry="3" fill="#AB1E23"/>
+              <path d="M10 20L6 24L8 26L12 22" fill="white" opacity=".7"/>
+              <path d="M22 20L26 24L24 26L20 22" fill="white" opacity=".7"/>
+              <path d="M16 27L16 31" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+            </svg>
+            OrbitNext
+          </div>
+        </div>
         <div class="tl-years">2024 &ndash; 2030</div>
         <div class="tl-phase">The Third Orbit</div>
         <div class="tl-desc">$50M by 2029. AI-first. Enterprise-grade. Global footprint. OrbitNext is our most ambitious leap — and we are building it together.</div>
+        <div class="tl-orbit-card">
+          <div class="tl-orbit-card-title">OrbitNext 2.0</div>
+          <div class="tl-orbit-card-row">
+            <span class="tl-orbit-card-label">Ambition</span>
+            <span class="tl-orbit-card-val">$50M by 2029</span>
+          </div>
+          <div class="tl-orbit-card-row">
+            <span class="tl-orbit-card-label">Tracks</span>
+            <span class="tl-orbit-card-val">4 focused</span>
+          </div>
+          <div class="tl-orbit-card-row">
+            <span class="tl-orbit-card-label">People</span>
+            <span class="tl-orbit-card-val">520+</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -278,9 +361,8 @@ h2.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy
 <section class="origin">
   <div class="origin-inner">
     <div class="origin-img">
-      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/DSC_4279.JPG"
-           onerror="this.src='https://mekhanil1055.github.io/orbitnext-dashboard/OrbitNext%20Logo.png'"
-           alt="OrbitNext launch event, 25th Anniversary">
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/IMG_2501.jpeg"
+           alt="The Way Forward — Third Orbit Leadership Workshop">
       <div class="origin-img-caption">InApp 25th Anniversary Celebration — August 2025</div>
     </div>
     <div class="origin-content">
@@ -302,12 +384,16 @@ h2.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy
   <div class="photo-strip-inner">
     <div class="photo-strip-label">InApp 25th Anniversary Celebration &mdash; August 2025</div>
     <div class="photos">
-      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/DSC_4279.JPG"
-           onerror="this.style.display='none'" alt="Team at OrbitNext wall">
-      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/DSC_4282.JPG"
-           onerror="this.style.display='none'" alt="Team exploring OrbitNext story wall">
-      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/Right-Wall.jpg"
-           onerror="this.style.display='none'" alt="OrbitNext story wall">
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/Image_20250827_203134_536.jpeg"
+           alt="25th Anniversary Celebration">
+      <!-- REPLACE: upload photo to orbitnext-dashboard repo and update filename below -->
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/REPLACE_PHOTO_2.jpg"
+           alt="Photo 2 — replace REPLACE_PHOTO_2.jpg with actual filename"
+           onerror="this.style.background='#EEF0F2';this.style.minHeight='260px';this.removeAttribute('src')">
+      <!-- REPLACE: upload photo to orbitnext-dashboard repo and update filename below -->
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/REPLACE_PHOTO_3.jpg"
+           alt="Photo 3 — replace REPLACE_PHOTO_3.jpg with actual filename"
+           onerror="this.style.background='#EEF0F2';this.style.minHeight='260px';this.removeAttribute('src')">
     </div>
   </div>
 </section>
