@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="icon" type="image/png" href="https://mekhanil1055.github.io/orbitnext-story/FAVICON%20ON.png">
+<link rel="icon" type="image/png" href="https://mekhanil1055.github.io/orbitnext-story/FAVICON%20ON.png">
 <title>OrbitNext 2.0 — AI-Native Organisation</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -202,6 +202,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="eyebrow">Progress update</div>
     <h2 class="section-title">What&rsquo;s been achieved</h2>
     <p class="section-lead" style="margin-bottom:28px">An AI-generated summary of this track&rsquo;s progress, drawn from live programme data. Updated monthly.</p>
+    <div style="background:var(--track-light);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Progress — week by week</div>
+      <div id="trend-chart"><div style="font-size:13px;color:#6B7280;font-style:italic">Loading&hellip;</div></div>
+    </div>
     <div class="win-card">
       <div class="win-ai-label">&#10024; AI-generated from programme data</div>
       <div class="win-text" id="win-text"><span class="win-spinner"></span>Loading update&hellip;</div>
@@ -226,25 +230,54 @@ var TRACK_ID = "I2 - AI Native";
 
 function escHtml(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 
-function progColor(p){return p>=85?"#2E7D32":p>=70?"#F9A825":p>=50?"#FB8C00":p>=30?"#EF5350":"#B71C1C";}
-function statusLabel(p){return p>=85?"On Track":p>=70?"Minor Concerns":p>=50?"Needs Attention":p>=30?"At Risk":"Off Track";}
+// Employee-facing status scale (more lenient than leadership dashboard)
+function empColor(p){return p>=75?"#2E7D32":p>=60?"#E65100":"#1565C0";}
+function empLabel(p){return p>=75?"On Track":p>=60?"Gaining Ground":"Building Up";}
+function empBg(p){return p>=75?"#E8F5E9":p>=60?"#FFF3E0":"#EBF2FF";}
+function empBorder(p){return p>=75?"#A5D6A7":p>=60?"#FB8C00":"#90CAF9";}
+function empText(p){return p>=75?"#2E7D32":p>=60?"#BF5000":"#1565C0";}
 
-function buildWinText(d) {
+function buildWinBullets(d) {
   var ms = d["_milestones"]||[];
   var done = ms.filter(function(m){return m.status==="Completed";});
   var ip   = ms.filter(function(m){return m.status==="In Progress";});
   var metrics = d["_metrics"]||[];
   var wins = metrics.filter(function(m){
     var t=parseFloat((m.target||"").replace(/[^0-9.\-]/g,"")),a=parseFloat((m.actual||"").replace(/[^0-9.\-]/g,""));
-    return !isNaN(t)&&!isNaN(a)&&a>=t&&m.actual&&m.actual.trim()!=="";
+    return !isNaN(t)&&!isNaN(a)&&a>=t&&m.actual&&String(m.actual).trim()!=="";
   });
 
-  var lines = [];
-  if(done.length) lines.push(done.length+" milestone"+(done.length>1?"s":"")+" completed so far, including "+done[done.length-1].name+".");
-  if(ip.length) lines.push(ip.map(function(m){return m.name;}).join(", ")+(ip.length>1?" are":" is")+" currently in progress.");
-  if(wins.length) lines.push("Metrics hitting target: "+wins.map(function(m){return m.name+" at "+m.actual;}).join("; ")+".");
-  if(!lines.length) lines.push("Programme data for this track is being updated. Check back soon for the latest progress.");
-  return lines.join(" ");
+  var bullets = [];
+  if(done.length) bullets.push(done.length+" milestone"+(done.length>1?"s":"")+" completed so far, including "+done[done.length-1].name);
+  ip.forEach(function(m){ bullets.push(m.name+" is currently in progress"+(m.notes?" — "+m.notes:"")); });
+  wins.forEach(function(m){ bullets.push(m.name+" is at "+m.actual+", meeting the target of "+m.target); });
+  if(!bullets.length) bullets.push("Programme data for this track is being updated — check back soon for the latest");
+  return bullets;
+}
+
+function renderTrend(history) {
+  if(!history||!history.length) return '<div style="font-size:13px;color:#6B7280;font-style:italic;padding:16px 0">No trend data yet — scores will appear after the first weekly run.</div>';
+  var html = '<div style="display:flex;align-items:flex-end;gap:6px;height:80px;margin-bottom:8px">';
+  history.forEach(function(h,i){
+    var s=h.score||0;
+    var ht=Math.max(5,Math.round((s/100)*72));
+    var col=empColor(s);
+    var bg=empBg(s);
+    var isL=i===history.length-1;
+    html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;justify-content:flex-end">';
+    if(isL) html+='<div style="font-size:10px;font-weight:700;color:'+col+'">'+empLabel(s)+'</div>';
+    html+='<div style="width:100%;height:'+ht+'px;background:'+col+';border-radius:4px 4px 0 0;opacity:'+(isL?1:.55)+'" title="W'+h.week+': '+empLabel(s)+'"></div>';
+    html+='<div style="font-size:9px;color:#6B7280;font-family:monospace">W'+h.week+'</div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  html+='<div style="display:flex;gap:16px;padding-top:10px;border-top:1px solid #E4E6EC;flex-wrap:wrap">';
+  [["#2E7D32","#E8F5E9","#A5D6A7","On Track"],["#BF5000","#FFF3E0","#FB8C00","Gaining Ground"],["#1565C0","#EBF2FF","#90CAF9","Building Up"]].forEach(function(x){
+    html+='<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#6B7280">'
+         +'<div style="width:10px;height:10px;border-radius:2px;background:'+x[1]+';border:1px solid '+x[2]+'"></div>'+x[3]+'</div>';
+  });
+  html+='</div>';
+  return html;
 }
 
 fetch(DATA_URL)
@@ -256,26 +289,51 @@ fetch(DATA_URL)
     if(!d) return;
 
     var score = d["Overall Score"]||0;
-    var status = d["Overall Status"]||"";
-    var color = progColor(score);
+    var history = d["ScoreHistory"]||[];
 
-    document.getElementById("track-score").textContent = score+"%";
-    document.getElementById("track-score").style.color = color;
-    document.getElementById("track-status").textContent = status;
+    // Update hero status — hide score number, show label only
+    var scoreEl = document.getElementById("track-score");
+    var statusEl = document.getElementById("track-status");
+    if(scoreEl) scoreEl.style.display="none";
+    if(statusEl){
+      statusEl.textContent = empLabel(score);
+      statusEl.style.background = empBg(score);
+      statusEl.style.color = empText(score);
+      statusEl.style.border = "1px solid "+empBorder(score);
+      statusEl.style.fontSize = "16px";
+      statusEl.style.padding = "8px 20px";
+    }
 
-    document.getElementById("win-text").textContent = buildWinText(d);
+    // Render trend chart
+    var trendEl = document.getElementById("trend-chart");
+    if(trendEl) trendEl.innerHTML = renderTrend(history);
 
+    // Render win bullets
+    var bullets = buildWinBullets(d);
+    var bulletHtml = '<ul style="list-style:none;padding:0;margin:0">';
+    bullets.forEach(function(b){
+      bulletHtml+='<li style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid #f3f4f6;font-size:14px;color:#1A1D2E;line-height:1.6">'
+                 +'<span style="color:var(--track);font-weight:700;flex-shrink:0;margin-top:2px">→</span>'
+                 +escHtml(b)+'</li>';
+    });
+    bulletHtml+='</ul>';
+    var winEl = document.getElementById("win-text");
+    if(winEl) winEl.innerHTML = bulletHtml;
+
+    // Outputs
     var outputs = d["_outputs"]||[];
-    if(outputs.length) {
-      document.getElementById("outputs-list").style.display="block";
-      var html = outputs.map(function(o){
+    if(outputs.length){
+      var outList = document.getElementById("outputs-list");
+      var outItems = document.getElementById("outputs-items");
+      if(outList) outList.style.display="block";
+      if(outItems) outItems.innerHTML = outputs.map(function(o){
         return '<div class="output-item"><span class="output-item-check">&#10003;</span><span>'+escHtml(o)+'</span></div>';
       }).join("");
-      document.getElementById("outputs-items").innerHTML = html;
     }
   })
   .catch(function(){
-    document.getElementById("win-text").textContent = "Could not load programme data. Please try again later.";
+    var winEl = document.getElementById("win-text");
+    if(winEl) winEl.textContent = "Could not load programme data. Please try again later.";
   });
 </script>
 </body>
