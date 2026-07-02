@@ -53,23 +53,41 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 @keyframes scrollDot{0%,100%{opacity:.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.2)}}
 
 /* ORBIT TIMELINE */
-.orbit-section{background:#fff;padding:80px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.orbit-inner{max-width:1100px;margin:0 auto}
+.orbit-section{background:#fff;padding:56px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.orbit-inner{max-width:1200px;margin:0 auto}
 .orbit-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .orbit-eyebrow::before{content:'';width:20px;height:2px;background:var(--red)}
-.orbit-title{font-size:clamp(28px,3.5vw,40px);font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:48px;line-height:1.15}
-.timeline{position:relative;display:flex;gap:0}
-.timeline::before{content:'';position:absolute;top:36px;left:36px;right:36px;height:2px;background:linear-gradient(to right,#E4A03A,#2B6CB0,#2E7D32,var(--red));z-index:0}
-.tl-item{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1}
-.tl-dot{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;position:relative;flex-shrink:0;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,.12)}
-.tl-dot-inner{font-size:9px;color:#fff;text-align:center;line-height:1.3;padding:0 8px}
-.tl-years{font-size:11px;font-family:'DM Mono',monospace;font-weight:600;margin-bottom:6px}
-.tl-phase{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.orbit-title{font-size:clamp(28px,3.5vw,40px);font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:40px;line-height:1.15}
+.timeline{position:relative;display:flex;gap:0;align-items:flex-start}
+.timeline::before{content:'';position:absolute;top:44px;left:72px;right:72px;height:2px;background:linear-gradient(to right,#E4A03A,#2B6CB0,#2E7D32,var(--red));z-index:0}
+.tl-item{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;cursor:default;padding:0 8px}
+.tl-dot{width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative;flex-shrink:0;border:4px solid #fff;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease;will-change:transform}
+.tl-dot-inner{font-size:9px;font-weight:800;color:#fff;text-align:center;line-height:1.3;padding:0 6px;letter-spacing:.06em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.tl-years{font-size:11px;font-family:'DM Mono',monospace;font-weight:600;margin-bottom:6px;transition:font-weight .2s}
+.tl-phase{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;transition:color .2s}
 .tl-desc{font-size:13px;color:var(--muted);line-height:1.6;max-width:200px;margin:0 auto}
+.tl-item:not(:last-child):hover .tl-dot{transform:scale(1.22)}
+.tl-item:not(:last-child):hover .tl-phase{color:var(--red)}
+.tl-item:not(:last-child):hover .tl-years{font-weight:800}
+.tl-item:last-child .tl-dot{width:120px;height:120px;animation:orbitPulse 2.5s ease-in-out infinite;border-width:5px}
+.tl-item:last-child .tl-dot-inner{font-size:11px;font-weight:900}
+.tl-item:last-child .tl-phase{font-size:18px;font-weight:800;color:var(--red)}
+.tl-item:last-child:hover .tl-dot{animation:none;transform:scale(1.18);box-shadow:0 0 0 14px rgba(171,30,35,.1),0 0 0 28px rgba(171,30,35,.05),0 16px 48px rgba(171,30,35,.45)!important}
+.tl-orbit-card{position:absolute;top:148px;left:50%;transform:translateX(-50%) translateY(6px);width:230px;background:#fff;border:1px solid var(--border);border-top:3px solid var(--red);border-radius:14px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,.14);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.2,.64,1)}
+.tl-item:last-child:hover .tl-orbit-card{opacity:1;transform:translateX(-50%) translateY(0)}
+.tl-orbit-card-title{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+.tl-orbit-card-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;border-bottom:1px solid #f3f4f6}
+.tl-orbit-card-row:last-child{border-bottom:none}
+.tl-orbit-card-label{color:var(--muted)}
+.tl-orbit-card-val{font-weight:700;color:var(--navy);font-family:'DM Mono',monospace;font-size:13px}
+@keyframes orbitPulse{0%,100%{box-shadow:0 4px 24px rgba(171,30,35,.4),0 0 0 0 rgba(171,30,35,.15)}50%{box-shadow:0 8px 40px rgba(171,30,35,.5),0 0 0 16px rgba(171,30,35,.04)}}
 .tl-item:nth-child(1) .tl-dot{background:#E4A03A}
+.tl-item:nth-child(1):hover .tl-dot{box-shadow:0 8px 32px rgba(228,160,58,.5)}
 .tl-item:nth-child(2) .tl-dot{background:#2B6CB0}
+.tl-item:nth-child(2):hover .tl-dot{box-shadow:0 8px 32px rgba(43,108,176,.5)}
 .tl-item:nth-child(3) .tl-dot{background:#2E7D32}
-.tl-item:nth-child(4) .tl-dot{background:var(--red);box-shadow:0 4px 24px rgba(171,30,35,.4)}
+.tl-item:nth-child(3):hover .tl-dot{box-shadow:0 8px 32px rgba(46,125,50,.5)}
+.tl-item:nth-child(4) .tl-dot{background:var(--red)}
 .tl-item:nth-child(1) .tl-years{color:#E4A03A}
 .tl-item:nth-child(2) .tl-years{color:#2B6CB0}
 .tl-item:nth-child(3) .tl-years{color:#2E7D32}
@@ -105,13 +123,22 @@ h2.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy
 .funnel-arrow-wrap{display:flex;justify-content:center;margin:8px 0 16px}
 .funnel-arrow{font-size:20px;color:var(--red)}
 
-/* 25TH PHOTO STRIP */
-.photo-strip{padding:0 40px 80px;background:#fff}
-.photo-strip-inner{max-width:1100px;margin:0 auto}
-.photo-strip-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;text-align:center}
-.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;border-radius:16px;overflow:hidden}
-.photos img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .3s ease}
-.photos img:hover{transform:scale(1.02)}
+/* GALLERY CAROUSEL */
+.gallery-section{padding:60px 0;background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.gallery-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
+.gallery-eyebrow::before{content:'';width:20px;height:2px;background:var(--red)}
+.gallery-title{font-size:clamp(24px,3vw,36px);font-weight:800;color:var(--navy);letter-spacing:-.02em;text-align:center;margin-bottom:32px}
+.carousel{position:relative;overflow:hidden;width:100%;height:520px}
+.carousel-track{display:flex;height:100%;transition:transform .7s cubic-bezier(.77,0,.175,1)}
+.carousel-slide{min-width:100%;height:100%;position:relative;flex-shrink:0}
+.carousel-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.carousel-caption{position:absolute;bottom:0;left:0;right:0;padding:20px 40px 24px;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%);color:#fff;font-size:15px;font-weight:500;letter-spacing:.01em}
+.carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s,transform .2s;border:none;padding:0}
+.carousel-dot.active{background:var(--red);transform:scale(1.3)}
+.carousel-arrows{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 16px;pointer-events:none;z-index:10}
+.carousel-arrow{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--navy);pointer-events:all;transition:background .15s,transform .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.carousel-arrow:hover{background:#fff;transform:scale(1.08)}
 
 /* 4 TRACKS */
 .tracks{padding:80px 40px;background:var(--bg);border-top:1px solid var(--border)}
@@ -171,7 +198,6 @@ h2.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy
   .tracks-grid{grid-template-columns:1fr}
   .moves-grid{grid-template-columns:1fr 1fr}
   .wins-grid{grid-template-columns:1fr}
-  .photos{grid-template-columns:1fr}
   .timeline{flex-direction:column;gap:32px}
   .timeline::before{display:none}
 }
@@ -247,28 +273,82 @@ h2.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy
     <h2 class="orbit-title">Every orbit built on the one before it</h2>
     <div class="timeline">
       <div class="tl-item">
-        <div class="tl-dot"><div class="tl-dot-inner">Foundation</div></div>
+        <div class="tl-dot">
+          <div class="tl-dot-inner">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="display:block;margin-bottom:3px">
+              <rect x="4" y="20" width="5" height="8" rx="1" fill="white" opacity=".9"/>
+              <rect x="13" y="14" width="5" height="14" rx="1" fill="white" opacity=".9"/>
+              <rect x="22" y="20" width="5" height="8" rx="1" fill="white" opacity=".9"/>
+              <rect x="2" y="28" width="27" height="2.5" rx="1" fill="white"/>
+              <rect x="6" y="11" width="19" height="2" rx="1" fill="white" opacity=".7"/>
+            </svg>
+            Foundation
+          </div>
+        </div>
         <div class="tl-years">2000 &ndash; 2006</div>
         <div class="tl-phase">Building the Foundation</div>
         <div class="tl-desc">Four founders, a bold vision, and a commitment to engineering discipline. CMMI Level 5. Datec acquisition. The core of what InApp would become.</div>
       </div>
       <div class="tl-item">
-        <div class="tl-dot"><div class="tl-dot-inner">Orbit 1</div></div>
+        <div class="tl-dot">
+          <div class="tl-dot-inner">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="display:block;margin-bottom:3px">
+              <path d="M3 14c0 0 3-4 7-4c2 0 3.5 1 5 1s3-1 5-1c4 0 7 4 7 4" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>
+              <path d="M3 14l4 6h3l3-3l3 3h3l4-6" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="16" cy="10" r="2.5" fill="white" opacity=".8"/>
+            </svg>
+            Orbit 1
+          </div>
+        </div>
         <div class="tl-years">2006 &ndash; 2017</div>
         <div class="tl-phase">Deepening Client Trust</div>
         <div class="tl-desc">100 employees, Japan office, Testing as a Service, QC tool supporting India's Mars Mission. Engineering rigour that built lasting client relationships.</div>
       </div>
       <div class="tl-item">
-        <div class="tl-dot"><div class="tl-dot-inner">Orbit 2</div></div>
+        <div class="tl-dot">
+          <div class="tl-dot-inner">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="display:block;margin-bottom:3px">
+              <polyline points="4,24 12,14 18,19 27,8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="20,8 27,8 27,15" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Orbit 2
+          </div>
+        </div>
         <div class="tl-years">2017 &ndash; 2024</div>
         <div class="tl-phase">Accelerated Growth</div>
         <div class="tl-desc">US State Government entry, campus recruitment, Kochi Infopark, UX CoE, Data Sciences CoE. Strategic direction guided by Sankar Krishnan sharpened our growth ambition.</div>
       </div>
       <div class="tl-item">
-        <div class="tl-dot"><div class="tl-dot-inner">OrbitNext</div></div>
+        <div class="tl-dot">
+          <div class="tl-dot-inner">
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none" style="display:block;margin-bottom:3px">
+              <path d="M16 3C16 3 22 7 22 16C22 20 20 24 16 27C12 24 10 20 10 16C10 7 16 3 16 3Z" fill="white" opacity=".9"/>
+              <ellipse cx="16" cy="16" rx="3" ry="3" fill="#AB1E23"/>
+              <path d="M10 20L6 24L8 26L12 22" fill="white" opacity=".7"/>
+              <path d="M22 20L26 24L24 26L20 22" fill="white" opacity=".7"/>
+              <path d="M16 27L16 31" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+            </svg>
+            OrbitNext
+          </div>
+        </div>
         <div class="tl-years">2024 &ndash; 2030</div>
         <div class="tl-phase">The Third Orbit</div>
         <div class="tl-desc">$50M by 2029. AI-first. Enterprise-grade. Global footprint. OrbitNext is our most ambitious leap — and we are building it together.</div>
+        <div class="tl-orbit-card">
+          <div class="tl-orbit-card-title">OrbitNext 2.0</div>
+          <div class="tl-orbit-card-row">
+            <span class="tl-orbit-card-label">Ambition</span>
+            <span class="tl-orbit-card-val">$50M by 2029</span>
+          </div>
+          <div class="tl-orbit-card-row">
+            <span class="tl-orbit-card-label">Tracks</span>
+            <span class="tl-orbit-card-val">4 focused</span>
+          </div>
+          <div class="tl-orbit-card-row">
+            <span class="tl-orbit-card-label">People</span>
+            <span class="tl-orbit-card-val">520+</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -278,10 +358,8 @@ h2.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy
 <section class="origin">
   <div class="origin-inner">
     <div class="origin-img">
-      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/DSC_4279.JPG"
-           onerror="this.src='https://mekhanil1055.github.io/orbitnext-dashboard/OrbitNext%20Logo.png'"
-           alt="OrbitNext launch event, 25th Anniversary">
-      <div class="origin-img-caption">InApp 25th Anniversary Celebration — August 2025</div>
+      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/IMG_2501.jpeg"
+           alt="The Way Forward — Third Orbit Leadership Workshop">
     </div>
     <div class="origin-content">
       <div class="eyebrow">How it started</div>
@@ -297,15 +375,34 @@ h2.section-title{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy
   </div>
 </section>
 
-<!-- 25TH ANNIVERSARY PHOTOS -->
-<section class="photo-strip">
-  <div class="photo-strip-inner">
-    <div class="photo-strip-label">InApp 25th Anniversary Celebration &mdash; August 2025</div>
-    <div class="photos">
-      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/DSC_4287.JPG" alt="25th Anniversary Celebration">
-      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/Image_20250827_203134_536.jpeg" alt="25th Anniversary Celebration">
-      <img src="https://mekhanil1055.github.io/orbitnext-dashboard/Image_20251016_010426_436.jpeg" alt="25th Anniversary Celebration">
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="gallery-eyebrow">Gallery</div>
+  <h2 class="gallery-title">OrbitNext through the lens</h2>
+  <div class="carousel" id="carousel">
+    <div class="carousel-track" id="carousel-track">
+      <div class="carousel-slide">
+        <img src="https://mekhanil1055.github.io/orbitnext-dashboard/DSC_4287.JPG" alt="OrbitNext wall at our Nila office">
+        <div class="carousel-caption">OrbitNext wall at our Nila office</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://mekhanil1055.github.io/orbitnext-dashboard/Image_20250827_203134_536.jpeg" alt="Clients at the OrbitNext stall">
+        <div class="carousel-caption">Clients at the OrbitNext stall at our 25th Anniversary Celebrations</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://mekhanil1055.github.io/orbitnext-dashboard/Image_20251016_010426_436.jpeg" alt="Innoverse Workshop at Kochi">
+        <div class="carousel-caption">Innoverse Workshop at Kochi</div>
+      </div>
     </div>
+    <div class="carousel-arrows">
+      <button class="carousel-arrow" onclick="carouselPrev()">&#8592;</button>
+      <button class="carousel-arrow" onclick="carouselNext()">&#8594;</button>
+    </div>
+  </div>
+  <div class="carousel-dots">
+    <button class="carousel-dot active" onclick="carouselGo(0)"></button>
+    <button class="carousel-dot" onclick="carouselGo(1)"></button>
+    <button class="carousel-dot" onclick="carouselGo(2)"></button>
   </div>
 </section>
 
@@ -552,6 +649,28 @@ function loadWins(){
 }
 
 loadWins();
+</script>
+<script>
+// ── CAROUSEL ────────────────────────────────────────────────
+var carouselIdx = 0;
+var carouselTotal = 3;
+var carouselTimer;
+
+function carouselGo(idx) {
+  carouselIdx = (idx + carouselTotal) % carouselTotal;
+  document.getElementById("carousel-track").style.transform = "translateX(-" + (carouselIdx * 100) + "%)";
+  document.querySelectorAll(".carousel-dot").forEach(function(d, i) {
+    d.classList.toggle("active", i === carouselIdx);
+  });
+  clearInterval(carouselTimer);
+  carouselAuto();
+}
+function carouselNext() { carouselGo(carouselIdx + 1); }
+function carouselPrev() { carouselGo(carouselIdx - 1); }
+function carouselAuto() {
+  carouselTimer = setInterval(function() { carouselGo(carouselIdx + 1); }, 4000);
+}
+carouselAuto();
 </script>
 </body>
 </html>
